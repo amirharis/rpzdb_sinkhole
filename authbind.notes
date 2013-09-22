@@ -1,0 +1,12 @@
+Ubuntu
+-----
+
+# as root
+apt-get install authbind
+touch /etc/authbind/byport/80
+chown http /etc/authbind/byport/80
+chmod 500 /etc/authbind/byport/80
+
+#as user
+authbind ruby agent.rb
+authbind --deep ruby agent.rb

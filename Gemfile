@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gem 'sinatra'
+gem 'useragent'
+gem 'httparty'
+gem 'puma'
+gem 'daemons'

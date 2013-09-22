@@ -1,0 +1,8 @@
+require 'rubygems'
+require 'daemons'
+
+pwd = Dir.pwd
+Daemons.run_proc('agent.rb', {:dir_mode => :normal, :dir => pwd}) do
+  Dir.chdir(pwd)
+  exec "authbind ruby agent.rb"
+end
