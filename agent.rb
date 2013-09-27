@@ -8,11 +8,13 @@ require 'daemons'
 require 'logger'
 
 ###Set your variables here###
-id = "hack"
-api_key = "YymQ5ZzxwZ7FfHxG5-Tz"
+
+tracking_code = "RPZDB-BE4752-X"
+api_key = "7Figu1iQKoHyDEN5JC4T"
 bind = "0.0.0.0"
 port = 80
-wg_domain = "api.rpzdb.com"
+@api_base_url = "http://api.rpzdb.com"
+
 ################################
 
 set :bind, bind
@@ -28,7 +30,7 @@ end
 
 class Partay
   include HTTParty
-  base_uri 'http://api.rpzdb.com'
+  base_uri "http://dev.api.rpzdb.com"
 end
 
 
@@ -36,6 +38,7 @@ get '*' do
   user_agent =  UserAgent.parse(request.env["HTTP_USER_AGENT"])
   options = {
   :body => {
+      :tracking_code => tracking_code,
       :domain_name => request.env["SERVER_NAME"],
       :browser_os => user_agent.platform, 
       :browser_type => user_agent.browser,
@@ -53,6 +56,7 @@ get '*' do
   p options
   data = Partay.post('/save_data.json', options)
   $logger.info("#{options}")
+  $logger.info("#{data}")
   redirect "http://www.google.com"
 end
 
